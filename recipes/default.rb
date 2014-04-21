@@ -1,4 +1,4 @@
-yum_repository 'ace' do
+repo = yum_repository 'ace' do
   repositoryid node['yum']['ace']['repositoryid']
   description node['yum']['ace']['description']
   baseurl node['yum']['ace']['baseurl']
@@ -6,6 +6,9 @@ yum_repository 'ace' do
   gpgcheck node['yum']['ace']['gpgcheck']
   priority node['yum']['ace']['priority']
 
-  action :create
+  action :nothing
   source 's3_repo.erb'
 end
+
+# Run at compile time
+repo.run_action(:create)
